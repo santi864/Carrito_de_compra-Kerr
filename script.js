@@ -27,7 +27,7 @@ const mostrarProductos = () => {
                 <span id="cantidad-${index}">1</span>
                 <button onclick="cambiarCantidad(${index}, 1)">+</button>
             </div>
-            <button onclick="agregarAlCarrito(${index})">Agregar al Carrito</button>
+            <button class = "agregar" onclick="agregarAlCarrito(${index})">Agregar al Carrito</button>
         `;
         productosDiv.appendChild(productoDiv);
     });
@@ -101,11 +101,11 @@ document.getElementById('comprar').addEventListener('click', () => {
 
     Swal.fire({
         icon: 'success',
-        title: 'Tu compra fue exitosa',
+        title: '¡Tu compra fue exitosa!',
         text: resumen
     });
 
-    // limpiar carrito después de la compra
+    // limpiar carrito
     carrito = [];
     guardarCarrito();
     mostrarCarrito();

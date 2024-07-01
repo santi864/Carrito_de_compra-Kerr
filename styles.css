@@ -106,3 +106,16 @@ h1, h2 {
 .comprar:hover {
     background: #218838;
 }
+
+.agregar {
+    background-color: #313715;
+    color: #fff;
+    margin: 10px;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.agregar :hover {
+    background-color: black;
+}
