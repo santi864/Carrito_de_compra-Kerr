@@ -1,10 +1,10 @@
 const muebles = [
-    { nombre: "Sillón", tipo: "Sala", precio: 300, enStock: true },
-    { nombre: "Mesa", tipo: "Comedor", precio: 200, enStock: true },
-    { nombre: "Cama", tipo: "Dormitorio", precio: 400, enStock: true },
-    { nombre: "Silla", tipo: "Sala", precio: 100, enStock: true },
-    { nombre: "Estantería", tipo: "Oficina", precio: 150, enStock: true },
-    { nombre: "Escritorio", tipo: "Oficina", precio: 150, enStock: true },
+    { nombre: "Sillón", tipo: "Sala", precio: 45000, enStock: true },
+    { nombre: "Mesa", tipo: "Comedor", precio: 50000, enStock: true },
+    { nombre: "Cama", tipo: "Dormitorio", precio: 40000, enStock: true },
+    { nombre: "Silla", tipo: "Sala", precio: 15000, enStock: true },
+    { nombre: "Estantería", tipo: "Oficina", precio: 15000, enStock: true },
+    { nombre: "Escritorio", tipo: "Oficina", precio: 30000, enStock: true },
 ];
 
 const filtrarEnStock = () => muebles.filter(mueble => mueble.enStock);
