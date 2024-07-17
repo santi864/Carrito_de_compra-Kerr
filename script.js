@@ -1,20 +1,47 @@
-const muebles = [
-    { nombre: "Sillón", tipo: "Sala", precio: 45000, enStock: true },
-    { nombre: "Mesa", tipo: "Comedor", precio: 50000, enStock: true },
-    { nombre: "Cama", tipo: "Dormitorio", precio: 40000, enStock: true },
-    { nombre: "Silla", tipo: "Sala", precio: 15000, enStock: true },
-    { nombre: "Estantería", tipo: "Oficina", precio: 15000, enStock: true },
-    { nombre: "Escritorio", tipo: "Oficina", precio: 30000, enStock: true },
-];
+document.addEventListener('DOMContentLoaded', () => {
+    // Cargar los datos de muebles desde el archivo JSON
+    fetchMuebles('muebles.json')
+        .then(data => {
+            inicializarMuebles(data);
+            mostrarProductos();
+            mostrarCarrito();
+        })
+        .catch(error => console.error('Error al cargar el archivo JSON:', error));
+});
 
+// Función para cargar muebles usando fetch con promesas
+const fetchMuebles = (url) => {
+    return fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Error en la solicitud: ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .catch(error => {
+            console.error('Error al hacer fetch:', error);
+            throw error;
+        });
+};
+
+// Array para almacenar los muebles cargados desde el JSON
+let muebles = [];
+
+// Inicializar los muebles
+const inicializarMuebles = (data) => {
+    muebles = data;
+};
+
+// Filtrar Muebles en Stock
 const filtrarEnStock = () => muebles.filter(mueble => mueble.enStock);
 
+// Almacenar el carrito
 let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
-// mostrar Productos
+// Mostrar Productos
 const mostrarProductos = () => {
     const productosDiv = document.getElementById('productos');
-    productosDiv.innerHTML = '';
+    productosDiv.innerHTML = ''; // Limpiar contenido previo
     filtrarEnStock().forEach((mueble, index) => {
         const productoDiv = document.createElement('div');
         productoDiv.className = 'producto';
@@ -27,20 +54,21 @@ const mostrarProductos = () => {
                 <span id="cantidad-${index}">1</span>
                 <button onclick="cambiarCantidad(${index}, 1)">+</button>
             </div>
-            <button class = "agregar" onclick="agregarAlCarrito(${index})">Agregar al Carrito</button>
+            <button class="agregar" onclick="agregarAlCarrito(${index})">Agregar al Carrito</button>
         `;
         productosDiv.appendChild(productoDiv);
     });
 };
 
-const cambiarCantidad = (index, i) => {
+// Cambiar Cantidad
+const cambiarCantidad = (index, delta) => {
     const cantidadSpan = document.getElementById(`cantidad-${index}`);
-    let cantidad = parseInt(cantidadSpan.textContent) + i;
+    let cantidad = parseInt(cantidadSpan.textContent) + delta;
     if (cantidad < 1) cantidad = 1;
     cantidadSpan.textContent = cantidad;
 };
 
-// agregar 0roducto al carrito
+// Agregar Producto al Carrito
 const agregarAlCarrito = (index) => {
     const cantidad = parseInt(document.getElementById(`cantidad-${index}`).textContent);
     const productoEnCarrito = carrito.find(item => item.nombre === muebles[index].nombre);
@@ -53,15 +81,15 @@ const agregarAlCarrito = (index) => {
     mostrarCarrito();
 };
 
-// guardar carrito en localStorage
+// Guardar Carrito en localStorage
 const guardarCarrito = () => {
     localStorage.setItem('carrito', JSON.stringify(carrito));
 };
 
-// mostrar carrito
+// Mostrar Carrito
 const mostrarCarrito = () => {
     const carritoDiv = document.getElementById('carrito');
-    carritoDiv.innerHTML = '';
+    carritoDiv.innerHTML = ''; // Limpiar contenido previo
     carrito.forEach((item, index) => {
         const itemDiv = document.createElement('div');
         itemDiv.className = 'item-carrito';
@@ -75,14 +103,14 @@ const mostrarCarrito = () => {
     document.getElementById('total').textContent = `Total: $${total}`;
 };
 
-// eliminar producto
+// Eliminar Producto del Carrito
 const eliminarDelCarrito = (index) => {
     carrito.splice(index, 1);
     guardarCarrito();
     mostrarCarrito();
 };
 
-// finalizar Compra
+// Finalizar Compra
 document.getElementById('comprar').addEventListener('click', () => {
     if (carrito.length === 0) {
         Swal.fire({
@@ -105,11 +133,8 @@ document.getElementById('comprar').addEventListener('click', () => {
         text: resumen
     });
 
-    // limpiar carrito
+    // Limpiar carrito después de la compra
     carrito = [];
     guardarCarrito();
     mostrarCarrito();
 });
-
-mostrarProductos();
-mostrarCarrito();

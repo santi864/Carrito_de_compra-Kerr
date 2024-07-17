@@ -1,0 +1,39 @@
+[
+    {
+        "nombre": "Sillon",
+        "tipo": "Sala",
+        "precio": 45000,
+        "enStock": true
+    },
+    {
+        "nombre": "Mesa",
+        "tipo": "Comedor",
+        "precio": 50000,
+        "enStock": true
+    },
+    {
+        "nombre": "Cama",
+        "tipo": "Dormitorio",
+        "precio": 40000,
+        "enStock": true
+    },
+    {
+        "nombre": "Silla",
+        "tipo": "Sala",
+        "precio": 15000,
+        "enStock": true
+    },
+    {
+        "nombre": "Estantería",
+        "tipo": "Oficina",
+        "precio": 15000,
+        "enStock": true
+    },
+    {
+        "nombre": "Escritorio", 
+        "tipo": "Oficina", 
+        "precio": 30000, 
+        "enStock": true
+    }
+
+]
